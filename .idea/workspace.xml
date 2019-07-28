@@ -1,11 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="0ba718dc-4ea5-4194-8876-b13ae2ee4c90" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/media_shop/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/media_shop/settings.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/media_shop/wsgi.py" beforeDir="false" afterPath="$PROJECT_DIR$/media_shop/wsgi.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/requirements.txt" beforeDir="false" afterPath="$PROJECT_DIR$/requirements.txt" afterDir="false" />
-    </list>
+    <list default="true" id="0ba718dc-4ea5-4194-8876-b13ae2ee4c90" name="Default Changelist" comment="" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -177,7 +173,7 @@
       </list>
     </option>
   </component>
-  <component name="ProjectFrameBounds">
+  <component name="ProjectFrameBounds" extendedState="1">
     <option name="x" value="288" />
     <option name="y" value="2" />
     <option name="width" value="1535" />
@@ -332,15 +328,15 @@
       <workItem from="1563481484347" duration="328000" />
       <workItem from="1563519997044" duration="7774000" />
       <workItem from="1563615758579" duration="8416000" />
-      <workItem from="1563689352470" duration="83554000" />
+      <workItem from="1563689352470" duration="84148000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="128236000" />
+    <option name="totallyTimeSpent" value="128830000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="231" y="2" width="1228" height="396" extended-state="0" />
+    <frame x="231" y="2" width="1228" height="396" extended-state="1" />
     <editor active="true" />
     <layout>
       <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.21025641" />
