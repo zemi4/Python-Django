@@ -1,0 +1,25 @@
+{% extends 'shop/base.html' %}
+
+{% load static %}
+{% load crispy_forms_tags %}
+{% block title %} Авторизация {% endblock title %}
+{% block content %}
+
+
+    <div class="section-services heig" style="background-image: url(/static/images/Sfondo.jpg);">
+        <div class="container">
+            <div class="mid">
+                <h3 class="text-center avto">Авторизация</h3>
+                <hr>
+
+                <form action="" method="post">
+                    {% csrf_token %}
+                    {{ form|crispy }}
+                    <input type="submit" class="btn btn-success btn-block logbut" value="Войти в систему">
+                </form>
+
+            </div>
+        </div>
+    </div>
+
+{% endblock content %}

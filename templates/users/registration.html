@@ -1,0 +1,24 @@
+{% extends 'shop/base.html' %}
+{% load static %}
+{% load crispy_forms_tags %}
+{% block title %} Регистрация пользователя {% endblock title %}
+{% block content %}
+
+
+    <div class="section-services" style="background-image: url(/static/images/Sfondo.jpg);">
+        <div class="container">
+            <div class="mid">
+            <h3 class="text-center avto">Регистрация нового пользователя</h3>
+            <hr>
+
+            <form action="" method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                {{ form|crispy }}
+                {{ avatar|crispy }}
+                <input type="submit" class="btn btn-success btn-block btn-reg" value="Зарегистрироваться">
+            </form>
+            </div>
+        </div>
+    </div>
+
+{% endblock content %}

@@ -1,0 +1,73 @@
+{% extends 'shop/base.html' %}
+{% block title %}
+    {{ product.title }}
+{% endblock title %}
+{% load static %}
+{% block content %}
+
+<div class="gl-img img-prod" style="background-image: url(/static/images/v_sinij_1920x1080.jpg);">
+	<div class="container">
+		<div class="row">
+			<div class="card border-0 str-prod col-lg-12">
+				<div class="row">
+					<aside class="col-lg-6">
+						<article class="gallery-wrap block_img_prod">
+							<div class="img-big-wrap">
+							  <div><a href="#"><img src="{{ product.image.url }}" class="img_prod"></a></div>
+							</div>
+						</article>
+					</aside>
+
+					<aside class="col-lg-6">
+						<article class="card-body m-0 pt-0 pl-5">
+							<h3 class="title text-uppercase">{{ product.title }}</h3>
+
+							<div class="mb-3 mt-3">
+								<span class="price-title">Цена :</span>
+								<span class="price color-price-waanbii">{{ product.price }}</span>
+							</div>
+
+							<dl class="item-property">
+							  <dt>Описание:</dt>
+							  <dd><p>{{ product.description }}</p></dd>
+							</dl>
+
+							{% if request.user.is_authenticated %}                        <!--   если пользователь зарегистрирован-->
+							<a href="#" class="add_to_cart" data-slug="{{ product.slug }}"><button class="btn btn-lg color-box-waanbii" type="button">
+								<i class="fa fa-shopping-cart"></i> Добавить в корзину </button></a>
+							{% else %}
+							<p class="text-center">Заказать товар могут только авторизованные пользователи.
+								Пожалуйста, <a href="{% url 'login' %}">войдите</a> или <a href="{% url 'registration' %}"> зарегистрируйтесь</a></p>
+							{% endif %}
+
+						</article>
+					</aside>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<!--container.//-->
+
+<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+<script>
+	$(document).ready(function () {
+		$('.add_to_cart').on('click', function(e){
+			e.preventDefault();
+			product_slug = $(this).attr('data-slug');
+			data = {
+				product_slug: product_slug
+			}
+			$.ajax({
+				type: 'GET',
+				url: '{% url "add_to_cart" %}',                           // добавление товара в корзину (без перезагрузки стр.)
+				data: data,
+				success: function(data){
+					$('#cart_count').html(data.cart_total)
+				}
+			})
+		})
+	})
+</script>
+
+{% endblock content %}

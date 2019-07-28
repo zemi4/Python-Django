@@ -1,0 +1,46 @@
+{% extends 'shop/base.html' %}
+
+{% block title %}
+    {{ category.name }}
+{% endblock %}
+
+{% block content %}
+
+<div class="gl-img" style="background-image: url(/static/images/v_sinij_1920x1080.jpg);">
+    <div class="col-lg-12 zagol">
+        <h2 class="h2-cat">{{ category.name }}</h2>
+    </div>
+
+    <div class="container">
+        <div class="row">
+            {% for product in products_of_category %}
+            <div class="col-sm-6 col-md-4 col-lg-4 mt-4">
+                <div class="card card-inverse card-info block_cat">
+                    <div class="block_images_cat">
+                        <img class="img_cat" src="{{ product.image.url }}">
+                    </div>
+                    <div class="card-block">
+                        <figure class="profile">
+                            <img src="{{ product.image.url }}" class="profile-avatar" alt="">
+                        </figure>
+                        <h4 class="card-title mt-3">{{ product.title }}</h4>
+                        <div class="meta card-text">
+                            <a>{{ category.name }}</a>
+                        </div>
+                        <div class="card-text">
+                            {{ product.description }}
+                        </div>
+                    </div>
+                    <div class="card-footer">
+                        <h2><strong>{{ product.price }}</strong></h2>
+                        <a href="{{ product.get_absolute_url }}" ><button class="btn btn-info float-right btn-sm">Подробнее</button></a>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+
+{% endblock content %}
+

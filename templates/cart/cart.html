@@ -1,0 +1,116 @@
+{% extends 'shop/base.html' %}
+{% load static %}
+{% block title %} Ваша корзина {% endblock title %}
+{% block content %}
+
+
+    <div class="col-lg-12 text-center">
+        <h2>Ваша корзина</h2>
+    </div>
+
+    <div class="container heig">
+        {% if cart.items.count > 0 %}
+            <div class="my-cart">
+                <table class="table">
+                    <tr>
+                        <td class="text-center"><strong>Товар</strong></td>
+                        <td class="text-center"><strong>Кол-во</strong></td>
+                        <td class="text-center"><strong>Цена</strong></td>
+                        <td class="text-center"></td>
+                    </tr>
+                    {% for item in cart.items.all %}
+                        <tr class="cart-item-{{ item.product.id }}">
+                            <td class="text-center">strong{{ item.product.title }}</td>
+                            <td class="text-center">
+                                <form action="" method="GET">
+                                    <input type="number" name="qty" class="cart-item-qty" data-id="{{ item.id }}"
+                                           value="{{ item.qty }}" min="1" style=" width: 50px ">
+                                </form>
+                            </td>
+                            <td class="text-center" id="cart-item-total-{{ item.id }}">{{ item.item_total }} BYN.</td>
+
+                            <td class="text-center"><a href="#" class="remove_from_cart"
+                                                       data-slug="{{ item.product.slug }}"
+                                                       data-id="{{ item.product.id }}">
+                                <button class="btn del-fr-cart">Удалить из корзины</button>
+                            </a>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                    <tr>
+                        <td></td>
+                        <td class="text-center"><strong>Итого:</strong></td>
+                        <td class="text-center" id="cart-total-price"><strong>{{ cart.cart_total }} BYN.</strong></td>
+                        <td></td>
+                    </tr>
+                </table>
+                <br>
+                <div class="cart-predzakaz">
+                    <a href="{% url 'checkout' %}" class="">
+                        <button class="btn btn-info">Предварительный заказ</button>
+                    </a>
+                </div>
+            </div>
+
+            <h3 class="cart-empty"></h3>
+        {% else %}
+            <h3 class="text-center">Ваша корзина пуста</h3>
+        {% endif %}
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $('.cart-empty').css('display', 'none');
+            $('.remove_from_cart').on('click', function (e) {
+                e.preventDefault();
+                product_slug = $(this).attr('data-slug');
+                item_product_id = $(this).attr('data-id');
+                data = {
+                    product_slug: product_slug
+                };
+
+                $.ajax({
+                    type: 'GET',
+                    url: '{% url "remove_from_cart" %}',                    // удаление товара из корзины (без перезагрузки стр.)
+                    data: data,
+                    success: function (data) {
+                        $('#cart_count').html(data.cart_total);
+                        $('.cart-item-' + item_product_id).css('display', 'none');
+                        $('#cart-total-price').html('<strong>' + parseFloat(data.cart_total_price).toFixed(2) + 'BYN. </strong>')    // итоговая сумма товаров
+                        if (parseInt(data.cart_total) == 0) {
+                            $('.my-cart').css('display', 'none');
+                            $('.cart-empty').css('display', 'block');
+                            $('.cart-empty').html('<h3 class="text-center">Ваша корзина пуста</h3>')
+                        }
+                    }
+                })
+            })
+        })
+    </script>
+
+    <script>
+        $(document).ready(function () {
+            $('.cart-item-qty').on('click', function () {
+                qty = $(this).val();
+                item_id = $(this).attr('data-id');
+                data = {
+                    qty: qty,
+                    item_id: item_id
+                };
+                $.ajax({
+                    type: 'GET',
+                    url: '{% url "change_item_qty" %}',                       // кол-во товаров в корзине
+                    data: data,
+                    success: function (data) {
+                        $('#cart-item-total-' + item_id).html(parseFloat(data.item_total).toFixed(2) + 'BYN.');                      // сложение стоимости товаров
+                        $('#cart-total-price').html('<strong>' + parseFloat(data.cart_total_price).toFixed(2) + 'BYN. </strong>')    // итоговая сумма товаров
+
+                    }
+                })
+
+            })
+        })
+    </script>
+
+{% endblock content %}
